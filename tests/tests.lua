@@ -18,7 +18,7 @@ You should have received a copy of the GNU General Public License
 along with LibBase64-1.0.  If not, see <http://www.gnu.org/licenses/>.
 --]]
 
-package.path = package.path .. ";.\\wowmock\\?.lua"
+package.path = package.path .. ";./wowmock/?.lua"
 local LuaUnit = require('luaunit')
 local mockagne = require('mockagne')
 local wowmock = require('wowmock')
