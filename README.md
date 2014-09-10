@@ -3,7 +3,7 @@ LibBase64-1.0
 
 LibBase64-1.0 is a LibStub-based library provding base64 encoding/decoding using MIME's Base64.
 
-!(https://api.travis-ci.org/Adirelle/LibBase64-1.0.svg?branch=master)
+![Travis build status](https://api.travis-ci.org/Adirelle/LibBase64-1.0.svg?branch=master)
 
 Sample
 ------
