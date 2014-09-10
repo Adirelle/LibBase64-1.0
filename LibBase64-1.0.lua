@@ -18,9 +18,9 @@ You should have received a copy of the GNU General Public License
 along with LibBase64-1.0.  If not, see <http://www.gnu.org/licenses/>.
 --]]
 
-local MAJOR, MINOR = "LibBase64-1.0", 1
+local MAJOR, MINOR, lib = "LibBase64-1.0", 1
 if LibStub then
-	local lib = LibStub:NewLibrary(MAJOR, MINOR)
+	lib = LibStub:NewLibrary(MAJOR, MINOR)
 	if not lib then return end
 else
 	lib = {}
