@@ -20,19 +20,14 @@ along with LibBase64-1.0.  If not, see <http://www.gnu.org/licenses/>.
 
 package.path = package.path .. ";./wowmock/?.lua"
 local LuaUnit = require('luaunit')
-local mockagne = require('mockagne')
 local wowmock = require('wowmock')
 
-local when, verify = mockagne.when, mockagne.verify
-
-local globals, addon
+local lib
 
 tests = {}
 
 function tests:setup()
-    addon = mockagne:getMock()
-    globals = mockagne:getMock()
-    wowmock("../core/Base64.lua", globals, "MyAddon", addon)
+    lib = wowmock("../LibBase64-1.0.lua")
 end
 
 local function dataprovider(name, ...)
@@ -46,26 +41,37 @@ local function dataprovider(name, ...)
 	end
 end
 
-function tests:test_base64_encode(input, expected)
-	assertEquals(addon.base64_encode(input), expected)
+function tests:test_encode(input, expected)
+	assertEquals(lib:encode(input), expected)
 end
 
-dataprovider('test_base64_encode',
+dataprovider('test_encode',
 	{ "AAA",      "QUFB" },
 	{ "AA",       "QUE=" },
 	{ "A",        "QQ==" },
 	{ "FooBar !", "Rm9vQmFyICE=" }
 )
 
-function tests:test_base64_decode(expected, input)
-	assertEquals(addon.base64_decode(input), expected)
+function tests:test_decode(expected, input)
+	assertEquals(lib:decode(input), expected)
 end
 
-dataprovider('test_base64_decode',
+dataprovider('test_decode',
 	{ "AAA",      "QUFB" },
 	{ "AA",       "QUE=" },
 	{ "A",        "QQ==" },
 	{ "FooBar !", "Rm9vQmFyICE=" }
 )
+
+function tests:test_decode_errors(input)
+	assertEquals(pcall(lib.decode, lib, input), false)
+end
+
+dataprovider('test_decode_errors',
+	{ "=" },
+	{ "QUFB=" },
+	{ "QUE}=" }
+)
+
 
 os.exit(LuaUnit:Run())
